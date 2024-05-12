@@ -1,9 +1,9 @@
 ## XOR Linked List
 `template <typename T> class XorLinkedList { ...`\
-The XOR Linked List implements similar methods to a normal doubly-linked list, but using one pointer per node. This pointer contains the result of XORing the addresses of the previous and the next node (`prev ^ next`), allowing for some really cool tricks like being able to reverse the list simply by swapping the start and end nodes, or getting the next and previous node using the exact same logic. Additionally, I have implemented a caching system, making repeated function calls on nodes much more efficient (`O(n), O(1), O(1), O(1), ...` instead of `O(n), O(n), O(n), O(n), ...`). This caching system is baked into a method called `traverse`, which automates the `O(n)` sequential traversal of the list and allows users to make custom traversal functions with much less boilerplate. Enjoy!\
+The XOR Linked List implements similar methods to a normal doubly-linked list, but using one pointer per node. This pointer contains the result of XORing the addresses of the previous and the next node (`prev ^ next`), allowing for some really cool tricks like being able to reverse the list simply by swapping the start and end nodes, or getting the next and previous node using the exact same logic. Additionally, I have implemented a caching system, making repeated function calls on nodes much more efficient (`O(n), O(1), O(1), O(1), ...` instead of `O(n), O(n), O(n), O(n), ...`). This caching system is baked into a method called `traverse`, which automates the `O(n)` sequential traversal of the list and allows users to make custom traversal functions with much less boilerplate. Enjoy!
 
 ### Traversal function & caching system
-The traversal function allows the user to define a lambda function which is then applied to each node in the list.\
+The traversal function allows the user to define a lambda function which is then applied to each node in the list.
 
 **Lambda function**\
 The lambda function is applied to each node in the list, and must take the following parameters:
@@ -45,7 +45,7 @@ It is often useful to return a value from the lambda function. To achieve this, 
 	}
 </snip>
 ```
-Notice the `&` between the square brackets at the start of the function. This will allow the lambda function to access varaibles in the current scope freely.
+Notice the `&` between the square brackets at the start of the function. This will allow the lambda function to access variables in the current scope freely.
 
 **Caching**\
 The following are provided for manual cache manipulation:
@@ -55,7 +55,7 @@ The following are provided for manual cache manipulation:
 	* `bool increased`: set to `true` if node was inserted, `false` if one was deleted.
 	* `newNode`: if `increased = true`, provide the new node via this parameter.
 
-**Example usage:**\
+**Example usage:**
 ```cpp
 Node<T> *prev;
 Node<T> *curr;
@@ -78,38 +78,38 @@ This code is snipped from the `XorLinkedList<T>::insert` implementation, and fin
 #### Constructor
 **Usage:** `XorLinkedList<int> *xll = new XorLinkedList<int>();`\
 **Internal declaration:** `XorLinkedList();`\
-**Description:** Nothing much to see here, just your standard constructor.\
+**Description:** Nothing much to see here, just your standard constructor.
 
 #### Destructor
 **Usage:** `delete xll;`\
 **Internal declaration:** `~XorLinkedList();`\
-**Description:** Again, nothing much. Just a destructor.\
+**Description:** Again, nothing much. Just a destructor.
 
 #### Get size
 **Usage:** `int s = xll->getSize();`\
 **Internal declaration:** `int getSize();`
 **Description:** Returns the current size of the list.\
-**Does not use cache | Does not set cache**\
+**Does not use cache | Does not set cache**
 
 #### Is empty?
 **Usage:** `bool e = xll->isEmpty();`\
 **Internal declaration:** `int getSize();`
 **Description:** Returns `true` if the list is currently empty.\
-**Does not use cache | Does not set cache**\
+**Does not use cache | Does not set cache**
 
 #### Contains element?
 **Usage:** `bool c = xll->contains(3);`\
 **Internal declaration:** `bool contains(T data);`\
 * `T data`: element of type `T` that the function searches for.\
 **Description:** Returns `true` if the list contains at least one instance of `data`.\
-**Uses cache (matches data) | Sets cache**\
+**Uses cache (matches data) | Sets cache**
 
 #### Add element
 **Usage:** `xll->add(4);`\
 **Internal declaration:** `void add(T data);`\
 * `T data`: element of type `T` that is added to the list.\
 **Description:** Adds a new node containing `data` to the end (tail) of the list.\
-**Uses cache (matches index) | Sets cache**\
+**Uses cache (matches index) | Sets cache**
 
 #### Insert element
 **Usage:** `xll->insert(5, 2);`\
@@ -117,21 +117,21 @@ This code is snipped from the `XorLinkedList<T>::insert` implementation, and fin
 * `T data`: element of type `T` that is added to the list.\
 * `int index`: where the element is added to the list (i.e. if `index = 2`, `data` becomes the new `xll[2]`.)
 **Description:** Adds a new node containing `data` at location `index`.\
-**Uses cache (matches index) | Does not set cache**\
+**Uses cache (matches index) | Does not set cache**
 
 #### Remove element
 **Usage:** `xll->remove(5);`\
 **Internal declaration:** `void remove(T data);`\
 * `T data`: element of type `T` that is removed from the list.\
 **Description:** Removes an instance of `data` from the list.\
-**Uses cache (matches data) | Does not set cache**\
+**Uses cache (matches data) | Does not set cache**
 
 #### Extract element
 **Usage:** `int e = xll->remove(2);`\
 **Internal declaration:** `T extract(int index);`\
 * `int index`: index of element that is to be extracted from the list.\
 **Description:** Removes the element at location `index` from the list and returns it.\
-**Uses cache (matches index) | Does not set cache**\
+**Uses cache (matches index) | Does not set cache**
 
 #### Set element
 **Usage:** `xll->set(5, 2);`\
@@ -139,33 +139,33 @@ This code is snipped from the `XorLinkedList<T>::insert` implementation, and fin
 * `T data`: value that node is to contain.
 * `int index`: index of node that is to be set.\
 **Description:** Replaces the current value of the node at location `index` with `data`.
-**Uses cache (matches index) | Sets cache**\
+**Uses cache (matches index) | Sets cache**
 
 #### Clear list
 **Usage:** `xll->clear();`\
 **Internal declaration:** `void clear();`\
 **Description:** Empties the list.\
-**Does not use cache | Resets cache**\
+**Does not use cache | Resets cache**
 
 #### Reverse list
 **Usage:** `xll->reverse();`\
 **Internal declaration:** `void reverse();`\
 **Description:** Reverses the list.\
-**Does not use cache | Resets cache**\
+**Does not use cache | Resets cache**
 
 #### Get element
 **Usage:** `int e = xll->get(2);`\
 **Internal declaration:** `T get(int index);`\
 * `int index`: location from which data is read.
 **Description:** Returns the data at location `index`.\
-**Uses cache (matches index) | Sets cache**\
+**Uses cache (matches index) | Sets cache**
 
 #### Get index of element
 **Usage:** `int e = xll->getIndex(5);`\
 **Internal declaration:** `int getIndex(T data);`\
 * `T data`: element which is searched for.
 **Description:** Returns the index of an instance of `data`.\
-**Uses cache (matches data) | Sets cache**\
+**Uses cache (matches data) | Sets cache**
 
 #### Traverse
 See "traversal function" section above.
